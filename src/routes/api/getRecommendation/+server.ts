@@ -2,6 +2,8 @@ import { createParser } from 'eventsource-parser';
 import { OPENAI_API_KEY } from '$env/static/private';
 
 const key = OPENAI_API_KEY;
+// const key = "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";
+
 
 interface OpenAIStreamPayload {
 	model: string;
@@ -72,7 +74,7 @@ async function OpenAIStream(payload: OpenAIStreamPayload) {
 export async function POST({ request }: { request: any }) {
 	const { searched } = await request.json();
 	const payload = {
-		model: 'text-davinci-003',
+		model: 'text-ada-001',
 		prompt: searched,
 		temperature: 0.7,
 		max_tokens: 2048,

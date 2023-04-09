@@ -29,12 +29,14 @@
 	$: {
 		if (searchResponse) {
 			let lastLength = recommendations.length;
-			let x = searchResponse?.split('\n');
+			let x = searchResponse?.split('&&&');
 			recommendations = x.map((d, i) => {
 				if ((x.length - 1 > i || endStream) && d !== '') {
 					// @ts-ignore
-					const [, title, description] = d.match(/\d\.\s*(.*?):\s*(.*)/);
-					return { title, description };
+					// const [, title, description] = d.match(/\d\.\s*(.*?):\s*(.*)/);
+					const [, title, description] = d.match(/(.*?):\s+(.*)/);
+					const firstSentence = description.match(/^[^.!?]+[.!?]/)?.[0].trim() || description;
+					return { title, description: firstSentence };
 				} else {
 					return d;
 				}
@@ -62,17 +64,19 @@
 		endStream = false;
 		loading = true;
 
-		let fullSearchCriteria = `Give me a list of 5 ${cinemaType} recommendations ${
-			selectedCategories ? `that fit all of the following categories: ${selectedCategories}` : ''
-		}. ${
-			specificDescriptors
-				? `Make sure it fits the following description as well: ${specificDescriptors}.`
-				: ''
-		} ${
-			selectedCategories || specificDescriptors
-				? `If you do not have 5 recommendations that fit these criteria perfectly, do your best to suggest other ${cinemaType}'s that I might like.`
-				: ''
-		} Please return this response as a numbered list with the ${cinemaType}'s title, followed by a colon, and then a brief description of the ${cinemaType}. There should be a line of whitespace between each item in the list.`;
+		let fullSearchCriteria = `Act as my Travel Agent.
+		I am going ${specificDescriptors} 
+		you're going to give me 5 sections.
+		For each, provide an estimated cost breakdown and the total cost of the trip.
+		Return the results as 5 blurbs and there should be a "&&&" symbol inserted between each section. 
+
+		Sections:
+		1: List of 5 Best Attractions to see in the city 
+		2: List of 5 Best restaurants to eat at in the city 
+		3: List of 5 local cuisines in the city to try
+		4: List of tips and tricks of travel in the city people visiting for the first time 
+		5: Provide the cost breakdown for everything."`;
+
 		const response = await fetch('/api/getRecommendation', {
 			method: 'POST',
 			body: JSON.stringify({ searched: fullSearchCriteria }),

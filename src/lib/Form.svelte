@@ -103,7 +103,7 @@
 			<div class="mb-4 font-semibold text-lg">
 				Select all categories that you want the show or movie to include.
 			</div>
-			<div class="flex items-center flex-wrap">
+			<!-- <div class="flex items-center flex-wrap">
 				{#each categoryTypes as category}
 					<label
 						class={`${
@@ -120,7 +120,7 @@
 						{category}
 					</label>
 				{/each}
-			</div>
+			</div> -->
 		</div>
 		<div class="mt-8">
 			<div class="mb-4 font-semibold text-lg">
