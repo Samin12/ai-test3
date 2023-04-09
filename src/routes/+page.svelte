@@ -76,7 +76,8 @@
 		3: List of 5 local cuisines in the city to try
 		4: List of tips and tricks of travel in the city people visiting for the first time 
 		5: Provide the cost breakdown for everything."`;
-
+		
+		console.log(fullSearchCriteria)
 		const response = await fetch('/api/getRecommendation', {
 			method: 'POST',
 			body: JSON.stringify({ searched: fullSearchCriteria }),
@@ -85,6 +86,7 @@
 			}
 		});
 
+		console.log(response.body)
 		if (response.ok) {
 			try {
 				const data = response.body;
