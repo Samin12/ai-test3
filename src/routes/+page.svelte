@@ -90,25 +90,24 @@
 
 
 		// experiment 
-		const configuration = new Configuration({
-  			apiKey: "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",
-		});
-		const openai = new OpenAIApi(configuration);
+		// const configuration = new Configuration({
+  		// 	apiKey: "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",
+		// });
+		// const openai = new OpenAIApi(configuration);
 
-		const response2 = await openai.createCompletion({
-		model: "text-ada-001",
-		prompt: fullSearchCriteria,
-		temperature: 0.7,
-		max_tokens: 256,
-		top_p: 1,
-		frequency_penalty: 0,
-		presence_penalty: 0,
-		});
+		// const response2 = await openai.createCompletion({
+		// model: "text-ada-001",
+		// prompt: fullSearchCriteria,
+		// temperature: 0.7,
+		// max_tokens: 256,
+		// top_p: 1,
+		// frequency_penalty: 0,
+		// presence_penalty: 0,
+		// });
 
-		console.log(response2.data.choices[0].text);
-
-		console.log(response.body)
-		// end experiment
+		// console.log(response2.data.choices[0].text);
+		// console.log(response.body)
+		// // end experiment
 
 		if (response.ok) {
 			try {

@@ -2,7 +2,6 @@ import { createParser } from 'eventsource-parser';
 import { OPENAI_API_KEY } from '$env/static/private';
 
 const key = OPENAI_API_KEY;
-// const key = "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";
 
 
 interface OpenAIStreamPayload {
@@ -23,6 +22,9 @@ async function OpenAIStream(payload: OpenAIStreamPayload) {
 
 	let counter = 0;
 
+	console.log("open api servers get rec page");
+	console.log(payload);
+	
 	const res = await fetch('https://api.openai.com/v1/completions', {
 		headers: {
 			'Content-Type': 'application/json',
@@ -38,7 +40,7 @@ async function OpenAIStream(payload: OpenAIStreamPayload) {
 				if (event.type === 'event') {
 					const data = event.data;
 					// https://beta.openai.com/docs/api-reference/completions/create#completions/create-stream
-					console.log(data)
+					console.log("dataget recs: "+data)
 					if (data === '[DONE]') {
 						controller.close();
 						return;
