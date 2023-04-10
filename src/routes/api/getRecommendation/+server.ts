@@ -38,6 +38,7 @@ async function OpenAIStream(payload: OpenAIStreamPayload) {
 				if (event.type === 'event') {
 					const data = event.data;
 					// https://beta.openai.com/docs/api-reference/completions/create#completions/create-stream
+					console.log(data)
 					if (data === '[DONE]') {
 						controller.close();
 						return;
@@ -74,7 +75,7 @@ async function OpenAIStream(payload: OpenAIStreamPayload) {
 export async function POST({ request }: { request: any }) {
 	const { searched } = await request.json();
 	const payload = {
-		model: 'text-ada-001',
+		model: 'text-davinci-003',
 		prompt: searched,
 		temperature: 0.7,
 		max_tokens: 2048,
